@@ -1,0 +1,23 @@
+#+TITLE: Dot scale/security
+#+AUTHOR: Andrea Crotti
+#+EMAIL: andrea.crotti@iwoca.co.uk
+#+OPTIONS: toc:nil num:nil ^:nil
+
+* Dotconferences
+
+- new format of conferences
+- organised in Paris
+- talks from top notch speakers
+- in beautiful theathers
+
+** Pictures
+
+* Dotsecurity
+
+** https / letsencrypt
+
+- issues with certificates
+- revoked certificates *not handled*
+- 
+
+** 
