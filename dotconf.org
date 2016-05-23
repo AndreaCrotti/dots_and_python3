@@ -1,7 +1,10 @@
-#+TITLE: Dot scale/security
+#+TITLE: Dot scale, Dot Security
 #+AUTHOR: Andrea Crotti
 #+EMAIL: andrea.crotti@iwoca.co.uk
-#+OPTIONS: toc:nil num:nil ^:nil
+#+OPTIONS: toc:nil num:nil ^:nil reveal_progress:t reveal_control:t reveal_overview:t
+#+REVEAL_TRANS: fade
+#+REVEAL_SPEED: fast
+#+TOC: listings
 
 * Dotconferences
 
@@ -10,14 +13,23 @@
 - talks from top notch speakers
 - in beautiful theathers
 
-** Pictures
+** Fancy
+
+[[./images/theater.jpg]]
+
+** Arguments
+
+[[./images/dotconfs.jpg]]
 
 * Dotsecurity
 
 ** https / letsencrypt
 
-- issues with certificates
+- certificates massive PITAs
 - revoked certificates *not handled*
-- 
+- millions of certificates in 1 month
+- wide and fast adoption
+
+[[./images/letsencrypt.png]]
 
 ** 
