@@ -13,11 +13,196 @@
 - Python 3.4 - March 16, 2014
 - Python 3.5 - September 13, 2015
 
-* Why Python3
+Ubuntu 16.04 LTS *only* ships Python 3.
 
 * Main differences
 
-* Migration policy
+- unicode related changes
+- new syntax
+
+* Unicode vs strings
+
+* Other changes
+
+** Advanced unpacking
+# TODO: take this if useful
+
+>>> a, b = range(2)
+>>> a
+0
+>>> b
+1
+Now you can do this:
+
+>>> a, b, *rest = range(10)
+>>> a
+0
+>>> b
+1
+>>> rest
+[2, 3, 4, 5, 6, 7, 8, 9]
+*rest can go anywhere:
+
+>>> a, *rest, b = range(10)
+>>> a
+0
+>>> b
+9
+>>> rest
+[1, 2, 3, 4, 5, 6, 7, 8]
+>>> *rest, b = range(10)
+>>> rest
+[0, 1, 2, 3, 4, 5, 6, 7, 8]
+>>> b
+9
+
+** Keyword only arguments
+
+def f(a, b, *args, option=True):
+    ...
+option comes after *args.
+
+The only way to access it is to explicitly call f(a, b, option=True)
+
+You can write just a * if you don't want to collect *args.
+
+def f(a, b, *, option=True):
+  ...
+
+def sum(a, b, *, biteme=False):
+  if biteme:
+      shutil.rmtree('/')
+  else:
+      return a + b
+>>> sum(1, 2, 3)
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+TypeError: sum() takes 2 positional arguments but 3 were given
+
+** Chained exceptions
+
+#+begin_src python
+
+def mycopy(source, dest):
+ try:
+     shutil.copy2(source, dest)
+ except OSError: # We don't have permissions. More on this later
+     raise NotImplementedError("automatic sudo injection")
+
+#+end_src
+
+#+begin_src python
+  >>> mycopy('noway', 'noway2')
+  >>> mycopy(1, 2)
+  Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 5, in mycopy
+  NotImplementedError: automatic sudo injection
+#+end_src
+
+** Fine grained exceptions
+
+
+#+begin_src python
+  import errno
+  def mycopy(source, dest):
+    try:
+        shutil.copy2(source, dest)
+    except OSError as e:
+        if e.errno in [errno.EPERM, errno.EACCES]:
+            raise NotImplementedError("automatic sudo injection")
+        else:
+            raise
+#+end_src
+
+** Iterators all over
+
+- range
+- zip
+- map
+- dict.values
+
+are all iterators
+
+See for example:
+
+In [2]: d = {1: 2, 3: 4}
+
+In [3]: d.items()
+Out[3]: dict_items([(1, 2), (3, 4)])
+
+In [4]: list(d.items())
+Out[4]: [(1, 2), (3, 4)]
+
+In [5]: d.keys()
+Out[5]: dict_keys([1, 3])
+
+In [6]: type(d.keys())
+Out[6]: dict_keys
+
+** No more ninja comparison
+
+>>> 'abc' > 123
+True
+>>> None > all
+False
+
+In Pyhton 3 this does not work anymore:
+
+>>> 'one' > 2
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+TypeError: unorderable types: str() > int()
+
+** Yield from
+
+Instead of 
+
+#+begin_src python
+for i in gen():
+    yield i
+#+end_src
+
+just do:
+
+
+#+begin_src python
+yield from gen()
+#+end_src
+
+** Standard library additions
+
+- ipaddress
+- functools.lru_cache
+- enum
+
+** Function annotations
+
+#+begin_src python
+In [1]: def f(a: int, b: int) -> int:
+   ...:     return a + b
+   ...: 
+
+In [2]: f(1, 20)
+Out[2]: 21
+
+In [3]: f.__annotations__
+Out[3]: {'a': int, 'b': int, 'return': int}
+#+end_src
+
+
+*** Strings
+
+
+* Migrating
+
+** 2to3
+
+** six
+
+** future
+
+** New projects
 
 * Write once, run everywhere
 
@@ -27,3 +212,5 @@
 - turn on Python3 warnings
 - make tests run for Python3
 - make sure they pass
+
+* Conclusions
