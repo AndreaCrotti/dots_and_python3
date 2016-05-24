@@ -110,3 +110,23 @@ Software is like wine, it you want it aged.
 - http://www.dotscale.io/
 - https://theupdateframework.github.io/
 - https://speakerdeck.com/mikewest/web-platform-security-dotsecurity-april-2016
+
+* Dotscale
+
+** Erlang
+
+- actor model invented in 1973
+  + send message
+  + create other actors
+  + process message
+
+- actors share nothings
+- sanity in a sea of complexity
+- 1986 Erlang was created
+- Erlang scales vertically and horizontally
+- Let it crash
+- Share nothing
+
+** Stateful containers
+
+** Cern collider
