@@ -19,7 +19,7 @@
 
 ** Arguments
 
-[[./images/dotconfs.jpg]]
+[[./images/dotconfs.png]]
 
 * Dotsecurity
 
