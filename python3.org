@@ -5,35 +5,51 @@
 - Python 1.0 - January 1994
 - Python 1.5 - December 31, 1997
 - Python 2.0 - October 16, 2000
-- Python 2.7 - July 3, 2010
-- Python 3.0 - December 3, 2008
+- *Python 2.7 - July 3, 2010*
+- *Python 3.0 - December 3, 2008*
 - Python 3.1 - June 27, 2009
 - Python 3.2 - February 20, 2011
 - Python 3.3 - September 29, 2012
 - Python 3.4 - March 16, 2014
-- Python 3.5 - September 13, 2015
+- *Python 3.5 - September 13, 2015*
 
-Ubuntu 16.04 LTS *only* ships Python 3.
+* Python3
+
+- Ubuntu 16.04 LTS *only* ships Python 3.
+- Python 2.8 will *never* be released
+
+#+begin_quote
+
+“Python 2 is the next COBOL.”
+
+—Alex Gaynor, at PyCon AU 2013
+#+end_quote
 
 * Main differences
 
 - unicode related changes
-- new syntax
+- consistency
+- concurrency
 
 * Unicode vs strings
+** 
 
 * Other changes
 
 ** Advanced unpacking
 # TODO: take this if useful
+Python2: 
 
+#+BEGIN_SRC python
 >>> a, b = range(2)
 >>> a
 0
 >>> b
 1
-Now you can do this:
+#+END_SRC
 
+Python 3
+#+BEGIN_SRC python
 >>> a, b, *rest = range(10)
 >>> a
 0
@@ -41,43 +57,34 @@ Now you can do this:
 1
 >>> rest
 [2, 3, 4, 5, 6, 7, 8, 9]
-*rest can go anywhere:
 
->>> a, *rest, b = range(10)
->>> a
-0
->>> b
-9
->>> rest
-[1, 2, 3, 4, 5, 6, 7, 8]
->>> *rest, b = range(10)
->>> rest
-[0, 1, 2, 3, 4, 5, 6, 7, 8]
->>> b
-9
+#+END_SRC
 
 ** Keyword only arguments
 
+Defined as:
+
+#+BEGIN_SRC python
 def f(a, b, *args, option=True):
-    ...
-option comes after *args.
+#+END_SRC
 
 The only way to access it is to explicitly call f(a, b, option=True)
 
 You can write just a * if you don't want to collect *args.
 
-def f(a, b, *, option=True):
-  ...
-
+#+BEGIN_SRC python
 def sum(a, b, *, biteme=False):
   if biteme:
       shutil.rmtree('/')
   else:
       return a + b
+
 >>> sum(1, 2, 3)
 Traceback (most recent call last):
 File "<stdin>", line 1, in <module>
 TypeError: sum() takes 2 positional arguments but 3 were given
+
+#+END_SRC
 
 ** Chained exceptions
 
@@ -122,10 +129,9 @@ def mycopy(source, dest):
 - map
 - dict.values
 
-are all iterators
+are all iterators.
 
-See for example:
-
+#+BEGIN_SRC python
 In [2]: d = {1: 2, 3: 4}
 
 In [3]: d.items()
@@ -137,44 +143,45 @@ Out[4]: [(1, 2), (3, 4)]
 In [5]: d.keys()
 Out[5]: dict_keys([1, 3])
 
-In [6]: type(d.keys())
-Out[6]: dict_keys
+#+END_SRC
 
 ** No more ninja comparison
 
+Python 2:
+
+#+BEGIN_SRC python
 >>> 'abc' > 123
 True
 >>> None > all
 False
+#+END_SRC
 
-In Pyhton 3 this does not work anymore:
+In Python 3 this does not work anymore:
 
+#+BEGIN_SRC python
 >>> 'one' > 2
 Traceback (most recent call last):
 File "<stdin>", line 1, in <module>
 TypeError: unorderable types: str() > int()
+#+END_SRC
 
 ** Yield from
 
-Instead of 
+Python2
 
 #+begin_src python
 for i in gen():
     yield i
 #+end_src
 
-just do:
-
+Python3
 
 #+begin_src python
 yield from gen()
 #+end_src
 
-** Standard library additions
-
-- ipaddress
-- functools.lru_cache
-- enum
+# this allows to do some really nice things as for example generate
+# sub generators from generators passing them around accordingly
 
 ** Function annotations
 
@@ -190,27 +197,80 @@ In [3]: f.__annotations__
 Out[3]: {'a': int, 'b': int, 'return': int}
 #+end_src
 
+** Standard library additions
 
-*** Strings
+- ipaddress
+- functools.lru_cache
+- enum
+- asyncio
 
+** Asyncio
+
+#+BEGIN_SRC python
+  import asyncio
+ 
+  @asyncio.coroutine
+  def my_coroutine(future, task_name, seconds_to_sleep=3):
+      print('{0} sleeping for: {1} seconds'.format(task_name, seconds_to_sleep))
+      yield from asyncio.sleep(seconds_to_sleep)
+      future.set_result('{0} is finished'.format(task_name))
+ 
+ 
+  def got_result(future):
+      print(future.result())
+ 
+  loop = asyncio.get_event_loop()
+  future1 = asyncio.Future()
+  future2 = asyncio.Future()
+ 
+  tasks = [
+      my_coroutine(future1, 'task1', 3),
+      my_coroutine(future2, 'task2', 1)]
+ 
+  future1.add_done_callback(got_result)
+  future2.add_done_callback(got_result)
+ 
+  loop.run_until_complete(asyncio.wait(tasks))
+  loop.close()
+#+END_SRC
 
 * Migrating
 
 ** 2to3
+- one off syntactic conversion
+- always safe
+- does not solve all the problems
 
 ** six
+- Python2 and Python3 compatible code
+- Django for example uses /six/
 
 ** future
+-
 
-** New projects
 
-* Write once, run everywhere
+* Links
 
-* Plan of action
+- https://pypi.python.org/pypi/future
+- https://pypi.python.org/pypi/six
 
-- deprecate and anyway not adopt new libraries that are not Python3 compatible
-- turn on Python3 warnings
-- make tests run for Python3
-- make sure they pass
 
 * Conclusions
+
+[[./images/elephant.jpg]]
+
+- we can't ignore Python3
+- start experimenting
+- new projects Python2/3 or Python3 only
+
+** Possible plan
+
+- existing projects
+  + deprecate and anyway not adopt new libraries that are not Python3 compatible
+  + avoid any non Python3 compatible library
+  + turn on Python3 warnings
+  + make tests run for Python3
+
+- new projects
+  + if possible Python3 only
+  + otherwise use *future* to use all the nice new stuff
