@@ -129,4 +129,10 @@ Software is like wine, it you want it aged.
 
 ** Stateful containers
 
+- stateful containers are hard
+- docker state done with volumes
+- moving stateful containers between different clouds is hard
+- need a *hybridized* container volume snapshotter
+
 ** Cern collider
+
