@@ -103,14 +103,6 @@ Software is like wine, it you want it aged.
 - [[https://www.yubico.com/products/yubikey-hardware/yubikey4/#toggle-id-7][yubi key]] for hardware security
 
 
-** Links
-
-- http://www.dotsecurity.io/
-- https://www.shodan.io/
-- http://www.dotscale.io/
-- https://theupdateframework.github.io/
-- https://speakerdeck.com/mikewest/web-platform-security-dotsecurity-april-2016
-
 * Dotscale
 
 ** Erlang
@@ -135,4 +127,30 @@ Software is like wine, it you want it aged.
 - need a *hybridized* container volume snapshotter
 
 ** Cern collider
+
+** Economics and scaling
+
+- look at how to maximize the profit
+- data value grows logarithmically
+
+- cost of development for scale used to grow almost exponentially, now
+  thanks to the cloud it's not like that anymore
+
+- teams should be small to not have excessive communication but to avoid
+  too much coordination
+
+** MongoDB presentation
+
+** Takeaways
+
+- consider even more asynchronous computation
+- 
+
+* Links
+
+- http://www.dotsecurity.io/
+- https://www.shodan.io/
+- http://www.dotscale.io/
+- https://theupdateframework.github.io/
+- https://speakerdeck.com/mikewest/web-platform-security-dotsecurity-april-2016
 
