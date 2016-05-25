@@ -42,6 +42,10 @@ The first version of Python 3 was released in 2008, so 7 years ago now.
 -Alex Gaynor, at PyCon AU 2013
 #+end_quote
 
+* The wall
+
+[[./images/wall.png]]
+
 * Main differences
 
 - strings!
