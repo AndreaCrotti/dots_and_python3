@@ -385,15 +385,6 @@ Out[3]: {'a': int, 'b': int, 'return': int}
 ** future
 - similar to six but 
 
-
-* Links
-
-- [[https://pypi.python.org/pypi/future][future library]]
-- [[https://pypi.python.org/pypi/six][six library]]
-- [[https://github.com/python/cpython/blob/master/Objects/unicodeobject.c][Python3 unicode code]]
-- [[http://nedbatchelder.com/text/unipain/unipain.html#1][pragmatic unicode, how do I stop the pain?]]
-- [[https://asmeurer.github.io/python3-presentation/slides.htm][10 awesome python3 features]]
-
 * Conclusions
 
 [[./images/elephant.jpg]]
@@ -413,3 +404,11 @@ Out[3]: {'a': int, 'b': int, 'return': int}
 - new projects
   + if possible Python3 only
   + otherwise use *future* to use all the nice new stuff
+
+* Links
+
+- [[https://pypi.python.org/pypi/future][future library]]
+- [[https://pypi.python.org/pypi/six][six library]]
+- [[https://github.com/python/cpython/blob/master/Objects/unicodeobject.c][Python3 unicode code]]
+- [[http://nedbatchelder.com/text/unipain/unipain.html#1][pragmatic unicode, how do I stop the pain?]]
+- [[https://asmeurer.github.io/python3-presentation/slides.htm][10 awesome python3 features]]
