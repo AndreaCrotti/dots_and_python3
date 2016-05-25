@@ -1,4 +1,10 @@
-#+OPTIONS: toc:nil num:nil ^:nil
+#+TITLE: Python 3
+#+AUTHOR: Andrea Crotti
+#+EMAIL: andrea.crotti@iwoca.co.uk
+#+OPTIONS: toc:nil num:nil ^:nil reveal_progress:t reveal_control:t reveal_overview:t
+#+REVEAL_TRANS: fade
+#+REVEAL_SPEED: fast
+#+TOC: listings
 
 * A bit of history
 
@@ -12,6 +18,15 @@
 - Python 3.3 - September 29, 2012
 - Python 3.4 - March 16, 2014
 - *Python 3.5 - September 13, 2015*
+
+
+#+begin_notes
+As you can see from this timeline
+#+end_notes
+
+* Why
+
+  *Unicode or die*
 
 * Python3
 
@@ -32,9 +47,47 @@
 - concurrency
 
 * Unicode vs strings
+
+** Strings
+
+- computer store as bytes
+- many languages out there
+- ASCII is not enough
+- ISO 8859-1/Windows-1252/ and many more -> *CHAOS*
+
+** Unicode
+
+- Assigns characters to code points (integers)
+- 1.1 million code points
+- 110K assigned
+
+☃ 💩
+
+** UTF-8
+
+- variable length encoding
+- compatible with ASCII
+
+** Python 2
+
+- str: a sequence of bytes
+- unicode: a sequence of code points
+
+#+BEGIN_SRC python
+  >>> my_string = "Hello World"
+  >>> type(my_string)
+  <type 'str'>
+ 
+  >>> my_unicode = u"Hi \u2119\u01b4\u2602\u210c\xf8\u1f24"
+  >>> type(my_unicode)
+  <type 'unicode'>
+#+END_SRC
+
 ** 
 
-* Other changes
+** Python3
+
+* Other changes 
 
 ** Advanced unpacking
 # TODO: take this if useful
@@ -232,8 +285,7 @@ Out[3]: {'a': int, 'b': int, 'return': int}
  
   loop.run_until_complete(asyncio.wait(tasks))
   loop.close()
-#+END_SRC
-
+#+END_
 * Migrating
 
 ** 2to3
@@ -251,8 +303,10 @@ Out[3]: {'a': int, 'b': int, 'return': int}
 
 * Links
 
-- https://pypi.python.org/pypi/future
-- https://pypi.python.org/pypi/six
+- [[https://pypi.python.org/pypi/future][future library]]
+- [[https://pypi.python.org/pypi/six][six library]]
+- [[https://github.com/python/cpython/blob/master/Objects/unicodeobject.c][Python3 unicode code]]
+- [[http://nedbatchelder.com/text/unipain/unipain.html#1][pragmatic unicode, how do I stop the pain?]]
 
 
 * Conclusions
