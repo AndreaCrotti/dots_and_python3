@@ -19,32 +19,34 @@
 - Python 3.4 - March 16, 2014
 - *Python 3.5 - September 13, 2015*
 
+#+BEGIN_NOTES
 
-#+begin_notes
-As you can see from this timeline
-#+end_notes
+As you can see from this timeline Python is a very old language.
+It has been around for 22 years already now and the version we are using was released in 2010.
 
-* Why
+The first version of Python 3 was released in 2008, so 7 years ago now.
 
-  *Unicode or die*
+#+END_NOTES
 
-* Python3
+* Few facts
 
 - Ubuntu 16.04 LTS *only* ships Python 3.
 - Python 2.8 will *never* be released
+- Python 2.7 is in maintanance mode (no new features)
+- Python 2 EOL 2020
 
 #+begin_quote
 
 “Python 2 is the next COBOL.”
 
-—Alex Gaynor, at PyCon AU 2013
+-Alex Gaynor, at PyCon AU 2013
 #+end_quote
 
 * Main differences
 
-- unicode related changes
+- strings!
 - consistency
-- concurrency
+- new syntax
 
 * Unicode vs strings
 
@@ -68,30 +70,53 @@ As you can see from this timeline
 - variable length encoding
 - compatible with ASCII
 
-** Python 2
+** Types
+
+Python2:
 
 - str: a sequence of bytes
 - unicode: a sequence of code points
 
+Python3:
+
+- bytes: a sequence of bytes
+- str: always unicode
+
+** Implicit conversions
+
+Python2:
+
 #+BEGIN_SRC python
-  >>> my_string = "Hello World"
-  >>> type(my_string)
-  <type 'str'>
- 
-  >>> my_unicode = u"Hi \u2119\u01b4\u2602\u210c\xf8\u1f24"
-  >>> type(my_unicode)
-  <type 'unicode'>
+  In [5]: type('hello')
+  Out[5]: str
+
+  In [6]: type(u'hello')
+  Out[6]: unicode
+
+  In [7]: 'hello' == u'hello'
+  Out[7]: True
+
 #+END_SRC
 
-** 
+Python3:
 
-** Python3
+#+BEGIN_SRC python
+  In [19]: type(u'hello')
+  Out[19]: str
 
-* Other changes 
+  In [20]: type('hello')
+  Out[20]: str
+
+  In [21]: u'hello' == 'hello'
+  Out[21]: True
+
+#+END_SRC
+
+* Other changes
 
 ** Advanced unpacking
 # TODO: take this if useful
-Python2: 
+Python2:
 
 #+BEGIN_SRC python
 >>> a, b = range(2)
@@ -241,7 +266,7 @@ yield from gen()
 #+begin_src python
 In [1]: def f(a: int, b: int) -> int:
    ...:     return a + b
-   ...: 
+   ...:
 
 In [2]: f(1, 20)
 Out[2]: 21
@@ -261,28 +286,28 @@ Out[3]: {'a': int, 'b': int, 'return': int}
 
 #+BEGIN_SRC python
   import asyncio
- 
+
   @asyncio.coroutine
   def my_coroutine(future, task_name, seconds_to_sleep=3):
       print('{0} sleeping for: {1} seconds'.format(task_name, seconds_to_sleep))
       yield from asyncio.sleep(seconds_to_sleep)
       future.set_result('{0} is finished'.format(task_name))
- 
- 
+
+
   def got_result(future):
       print(future.result())
- 
+
   loop = asyncio.get_event_loop()
   future1 = asyncio.Future()
   future2 = asyncio.Future()
- 
+
   tasks = [
       my_coroutine(future1, 'task1', 3),
       my_coroutine(future2, 'task2', 1)]
- 
+
   future1.add_done_callback(got_result)
   future2.add_done_callback(got_result)
- 
+
   loop.run_until_complete(asyncio.wait(tasks))
   loop.close()
 #+END_
