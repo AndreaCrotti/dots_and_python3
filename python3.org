@@ -197,11 +197,7 @@ def mycopy(source, dest):
 Python3
 
 #+BEGIN_SRC python
-  mycopy('noway', 'noway2')
-  Traceback (most recent call last):
-  File "<stdin>", line 3, in mycopy
-  File "/Users/aaronmeurer/anaconda3/lib/python3.3/shutil.py", line 243, in copy2
-    copyfile(src, dst, follow_symlinks=follow_symlinks)
+  ...
   File "/Users/aaronmeurer/anaconda3/lib/python3.3/shutil.py", line 109, in copyfile
     with open(src, 'rb') as fsrc:
   PermissionError: [Errno 13] Permission denied: 'noway'
@@ -298,7 +294,7 @@ File "<stdin>", line 1, in <module>
 TypeError: unorderable types: str() > int()
 #+END_SRC
 
-** Yield from
+** Yield from (1)
 
 Python2
 
@@ -315,6 +311,26 @@ yield from gen()
 
 # this allows to do some really nice things as for example generate
 # sub generators from generators passing them around accordingly
+
+** Yield from (2)
+
+#+BEGIN_SRC python
+  def get_list_values(lst):
+    for item in lst:
+      yield int(item)
+    for item in lst:
+      yield str(item)
+    for item in lst:
+      yield float(item)
+#+END_SRC
+
+#+BEGIN_SRC python
+  def get_list_values(lst):
+    for sub in [get_list_values_as_int, 
+                get_list_values_as_str, 
+                get_list_values_as_float]:
+      yield from sub(lst)
+#+END_SRC
 
 ** Function annotations
 
