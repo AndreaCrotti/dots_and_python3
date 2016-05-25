@@ -330,13 +330,6 @@ In [3]: f.__annotations__
 Out[3]: {'a': int, 'b': int, 'return': int}
 #+end_src
 
-** Standard library additions
-
-- ipaddress
-- functools.lru_cache
-- enum
-- asyncio
-
 ** Asyncio
 
 #+begin_src python
@@ -369,6 +362,15 @@ Out[3]: {'a': int, 'b': int, 'return': int}
 
 #+end_src
 
+** Standard library additions
+
+- ipaddress
+- functools.lru_cache
+- enum
+- asyncio
+- pathlib
+- ...
+
 * Migrating
 
 ** 2to3
@@ -381,7 +383,7 @@ Out[3]: {'a': int, 'b': int, 'return': int}
 - Django for example uses /six/
 
 ** future
--
+- similar to six but 
 
 
 * Links
