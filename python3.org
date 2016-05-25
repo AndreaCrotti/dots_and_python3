@@ -369,6 +369,7 @@ Out[3]: {'a': int, 'b': int, 'return': int}
 - enum
 - asyncio
 - pathlib
+- mock (in unittest.mock)
 - ...
 
 * Migrating
