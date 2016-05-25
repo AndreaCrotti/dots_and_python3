@@ -526,3 +526,4 @@ Hello
 - [[http://www.snarky.ca/why-python-3-exists][why python3 exists]]
 - [[http://www.diveintopython3.net/porting-code-to-python-3-with-2to3.html][porting to python3 with 2to3]]
 - [[https://pypi.python.org/pypi/tox][tox]]
+- [[https://python3wos.appspot.com/][python3 wall of superpowers]]
