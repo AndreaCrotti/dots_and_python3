@@ -384,7 +384,68 @@ Out[3]: {'a': int, 'b': int, 'return': int}
 - Django for example uses /six/
 
 ** future
-- similar to six but 
+
+Similar to six but more modern
+
+** Migrationi example
+
+*** 2to3
+
+#+BEGIN_SRC python
+  from StringIO import StringIO
+
+  if __name__ == '__main__':
+      s = StringIO("Hello")
+      print s.read()
+
+#+END_SRC
+
+*2to3 original.py*
+
+#+BEGIN_SRC python
+  from io import StringIO
+
+  if __name__ == '__main__':
+      s = StringIO("Hello")
+      print(s.read())
+
+#+END_SRC
+
+*** Using six
+
+#+BEGIN_SRC python
+import six
+
+
+if __name__ == '__main__':
+    s = six.StringIO("Hello")
+    print(s.read())
+#+END_SRC
+
+#+BEGIN_SRC sh
+$ python2 using_six.py 
+Hello
+$ python3 using_six.py
+Hello
+
+#+END_SRC
+
+*** Using futurize
+
+*futurize original.py*
+
+#+BEGIN_SRC python
+  from __future__ import print_function
+  from future import standard_library
+  standard_library.install_aliases()
+  from io import StringIO
+
+  if __name__ == '__main__':
+
+      s = StringIO("Hello")
+      print(s.read())
+
+#+END_SRC
 
 * Conclusions
 
