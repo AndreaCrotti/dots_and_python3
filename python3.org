@@ -557,14 +557,14 @@ Hello
 ** Possible plan
 
 - existing projects
-  + deprecate and anyway not adopt new libraries that are not Python3 compatible
-  + avoid any non Python3 compatible library
+  + deprecate and possibly replace any non Python3 compatible libraries
+  + pick carefully new libraries
   + turn on Python3 warnings
   + make tests run for Python3
 
 - new projects
   + if possible Python3 only
-  + otherwise use *future* or *six*
+  + otherwise use *future* or *six* for Python2 compatibility
 
 * Links
 
@@ -579,3 +579,4 @@ Hello
 - [[https://python3wos.appspot.com/][python3 wall of superpowers]]
 - [[https://ceronman.com/2013/03/12/a-powerful-unused-feature-of-python-function-annotations/][power of function annotations]]
 - [[https://www.python.org/dev/peps/pep-3107/][function annotations PEP]]
+- [[http://stackoverflow.com/questions/1036585/unicode-support-in-various-programming-languages][unicode support in various languages]]
