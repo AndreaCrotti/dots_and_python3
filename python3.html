@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Python 3</title>
+<meta name="author" content="(Andrea Crotti)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="/home/andrea/projects/oss_projects/javascript/reveal.js/css/reveal.css"/>
+
+<link rel="stylesheet" href="/home/andrea/projects/oss_projects/javascript/reveal.js/css/theme/moon.css" id="theme"/>
+
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '/home/andrea/projects/oss_projects/javascript/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">Python 3</h1><h2 class="author">Andrea Crotti</h2><p class="date">Created: 2016-05-26 Thu 11:18</p>
+</section>
+
+<section>
+<section id="slide-orgheadline1">
+<h2 id="orgheadline1">A bit of history</h2>
+<ul>
+<li>Python 1.0 - January 1994</li>
+<li>Python 1.5 - December 31, 1997</li>
+<li>Python 2.0 - October 16, 2000</li>
+<li><b>Python 2.7 - July 3, 2010</b></li>
+<li><b>Python 3.0 - December 3, 2008</b></li>
+<li>Python 3.1 - June 27, 2009</li>
+<li>Python 3.2 - February 20, 2011</li>
+<li>Python 3.3 - September 29, 2012</li>
+<li>Python 3.4 - March 16, 2014</li>
+<li><b>Python 3.5 - September 13, 2015</b></li>
+
+</ul>
+
+<aside class="notes">
+<p>
+
+</p>
+
+<p>
+As you can see from this timeline Python is a very old language.
+It has been around for 22 years already now and the version we are using was released in 2010.
+</p>
+
+<p>
+The first version of Python 3 was released in 2008, so 7 years ago now.
+</p>
+
+</aside>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline2">
+<h2 id="orgheadline2">Few facts</h2>
+<ul>
+<li>Ubuntu 16.04 LTS <b>only</b> ships Python 3.</li>
+<li>Python 2.8 will <b>never</b> be released</li>
+<li>Python 2.7 is in maintanance mode (no new features)</li>
+<li>Python 2 EOL 2020</li>
+
+</ul>
+
+<blockquote nil>
+<p>
+
+</p>
+
+<p>
+“Python 2 is the next COBOL.”
+</p>
+
+<p>
+-Alex Gaynor, at PyCon AU 2013
+</p>
+</blockquote>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline3">
+<h2 id="orgheadline3">The wall</h2>
+
+<div class="figure">
+<p><img src="./images/wall.png" alt="wall.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline4">
+<h2 id="orgheadline4">Main differences</h2>
+<ul>
+<li>strings!</li>
+<li>consistency</li>
+<li>safety</li>
+
+</ul>
+
+
+<blockquote nil>
+<p>
+It all started with a pair of quotes
+</p>
+
+<p>
+-Anonymous
+</p>
+</blockquote>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline10">
+<h2 id="orgheadline10">Unicode vs strings</h2>
+<div class="outline-text-2" id="text-orgheadline10">
+</div></section>
+<section id="slide-orgheadline5">
+<h3 id="orgheadline5">Strings</h3>
+<ul>
+<li>computer store as bytes</li>
+<li>many languages out there</li>
+<li>ASCII is not enough</li>
+<li>ISO 8859-1/Windows-1252/ and many more -&gt; <b>CHAOS</b></li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline6">
+<h3 id="orgheadline6">Unicode</h3>
+<ul>
+<li>Assigns characters to code points (integers)</li>
+<li>1.1 million code points</li>
+<li>110K assigned</li>
+
+</ul>
+
+<p>
+☃ 💩
+</p>
+
+</section>
+<section id="slide-orgheadline7">
+<h3 id="orgheadline7">UTF-8</h3>
+<ul>
+<li>variable length encoding</li>
+<li>compatible with ASCII</li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline8">
+<h3 id="orgheadline8">Types</h3>
+<p>
+Python2:
+</p>
+
+<ul>
+<li>str: a sequence of bytes</li>
+<li>unicode: a sequence of code points</li>
+
+</ul>
+
+<p>
+Python3:
+</p>
+
+<ul>
+<li>bytes: a sequence of bytes</li>
+<li>str: always unicode</li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline9">
+<h3 id="orgheadline9">Implicit conversions</h3>
+<p>
+Python 2:
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-python">In <span style="color: #aadddd;">[</span>5<span style="color: #aadddd;">]</span>: <span style="color: #aaffaa;">type</span><span style="color: #aadddd;">(</span><span style="color: #aadddd;">'hello'</span><span style="color: #aadddd;">)</span>
+Out<span style="color: #aadddd;">[</span>5<span style="color: #aadddd;">]</span>: <span style="color: #aaffaa;">str</span>
+
+In <span style="color: #aadddd;">[</span>6<span style="color: #aadddd;">]</span>: <span style="color: #aaffaa;">type</span><span style="color: #aadddd;">(</span>u<span style="color: #aadddd;">'hello'</span><span style="color: #aadddd;">)</span>
+Out<span style="color: #aadddd;">[</span>6<span style="color: #aadddd;">]</span>: <span style="color: #aaffaa;">unicode</span>
+
+In <span style="color: #aadddd;">[</span>7<span style="color: #aadddd;">]</span>: <span style="color: #aadddd;">'hello'</span> == u<span style="color: #aadddd;">'hello'</span>
+Out<span style="color: #aadddd;">[</span>7<span style="color: #aadddd;">]</span>: <span style="color: #ccaaff;">True</span>
+</pre>
+</div>
+
+<p>
+Python 3:
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-python">In <span style="color: #aadddd;">[</span>19<span style="color: #aadddd;">]</span>: <span style="color: #aaffaa;">type</span><span style="color: #aadddd;">(</span>u<span style="color: #aadddd;">'hello'</span><span style="color: #aadddd;">)</span>
+Out<span style="color: #aadddd;">[</span>19<span style="color: #aadddd;">]</span>: <span style="color: #aaffaa;">str</span>
+
+In <span style="color: #aadddd;">[</span>20<span style="color: #aadddd;">]</span>: <span style="color: #aaffaa;">type</span><span style="color: #aadddd;">(</span><span style="color: #aadddd;">'hello'</span><span style="color: #aadddd;">)</span>
+Out<span style="color: #aadddd;">[</span>20<span style="color: #aadddd;">]</span>: <span style="color: #aaffaa;">str</span>
+
+In <span style="color: #aadddd;">[</span>21<span style="color: #aadddd;">]</span>: u<span style="color: #aadddd;">'hello'</span> == <span style="color: #aadddd;">'hello'</span>
+Out<span style="color: #aadddd;">[</span>21<span style="color: #aadddd;">]</span>: <span style="color: #ccaaff;">True</span>
+</pre>
+</div>
+
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline25">
+<h2 id="orgheadline25">Other Improvements</h2>
+<div class="outline-text-2" id="text-orgheadline25">
+</div></section>
+<section id="slide-orgheadline11">
+<h3 id="orgheadline11">Advanced unpacking</h3>
+<p>
+Python2:
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-python">&gt;&gt;&gt; <span style="color: #aaccff;">a</span>, <span style="color: #aaccff;">b</span> = <span style="color: #aaffaa;">range</span><span style="color: #aadddd;">(</span>2<span style="color: #aadddd;">)</span>
+&gt;&gt;&gt; a
+0
+&gt;&gt;&gt; b
+1
+</pre>
+</div>
+
+<p>
+Python 3
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-python">&gt;&gt;&gt; a, b, *<span style="color: #aaccff;">rest</span> = <span style="color: #aaffaa;">range</span><span style="color: #aadddd;">(</span>10<span style="color: #aadddd;">)</span>
+&gt;&gt;&gt; a
+0
+&gt;&gt;&gt; b
+1
+&gt;&gt;&gt; rest
+<span style="color: #aadddd;">[</span>2, 3, 4, 5, 6, 7, 8, 9<span style="color: #aadddd;">]</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-orgheadline12">
+<h3 id="orgheadline12">Keyword only arguments</h3>
+<p>
+Defined as:
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #aaffaa;">def</span> <span style="color: #aaccff;">f</span><span style="color: #aadddd;">(</span>a, b, *args, option=<span style="color: #ccaaff;">True</span><span style="color: #aadddd;">)</span>:
+</pre>
+</div>
+
+<p>
+Can only be called as f(a, b, option=True)
+</p>
+
+<p>
+You can write just a * if you don't want to collect *args.
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #aaffaa;">def</span> <span style="color: #aaccff;">sum</span><span style="color: #aadddd;">(</span>a, b, *, biteme=<span style="color: #ccaaff;">False</span><span style="color: #aadddd;">)</span>:
+  <span style="color: #aaffaa;">if</span> biteme:
+      shutil.rmtree<span style="color: #aadddd;">(</span><span style="color: #aadddd;">'/'</span><span style="color: #aadddd;">)</span>
+  <span style="color: #aaffaa;">else</span>:
+      <span style="color: #aaffaa;">return</span> a + b
+
+&gt;&gt;&gt; <span style="color: #aaffaa;">sum</span><span style="color: #aadddd;">(</span>1, 2, 3<span style="color: #aadddd;">)</span>
+Traceback <span style="color: #aadddd;">(</span>most recent call last<span style="color: #aadddd;">)</span>:
+File <span style="color: #aadddd;">"&lt;stdin&gt;"</span>, line 1, <span style="color: #aaffaa;">in</span> &lt;module&gt;
+<span style="color: #aaeecc;">TypeError</span>: <span style="color: #aaffaa;">sum</span><span style="color: #aadddd;">()</span> takes 2 positional arguments but 3 were given
+</pre>
+</div>
+
+</section>
+<section id="slide-orgheadline13">
+<h3 id="orgheadline13">Chained exceptions (1)</h3>
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #aaffaa;">def</span> <span style="color: #aaccff;">mycopy</span><span style="color: #aadddd;">(</span>source, dest<span style="color: #aadddd;">)</span>:
+ <span style="color: #aaffaa;">try</span>:
+     shutil.copy2<span style="color: #aadddd;">(</span>source, dest<span style="color: #aadddd;">)</span>
+ <span style="color: #aaffaa;">except</span> <span style="color: #aaeecc;">OSError</span>: <span style="color: #5f5f5f; font-style: italic;"># </span><span style="color: #5f5f5f; font-style: italic;">We don't have permissions. More on this later</span>
+     <span style="color: #aaffaa;">raise</span> <span style="color: #aaeecc;">NotImplementedError</span><span style="color: #aadddd;">(</span><span style="color: #aadddd;">"automatic sudo injection"</span><span style="color: #aadddd;">)</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre  class="src src-python">&gt;&gt;&gt; mycopy<span style="color: #aadddd;">(</span><span style="color: #aadddd;">'noway'</span>, <span style="color: #aadddd;">'noway2'</span><span style="color: #aadddd;">)</span>
+&gt;&gt;&gt; mycopy<span style="color: #aadddd;">(</span>1, 2<span style="color: #aadddd;">)</span>
+Traceback <span style="color: #aadddd;">(</span>most recent call last<span style="color: #aadddd;">)</span>:
+File <span style="color: #aadddd;">"&lt;stdin&gt;"</span>, line 1, <span style="color: #aaffaa;">in</span> &lt;module&gt;
+File <span style="color: #aadddd;">"&lt;stdin&gt;"</span>, line 5, <span style="color: #aaffaa;">in</span> mycopy
+<span style="color: #aaeecc;">NotImplementedError</span>: automatic sudo injection
+</pre>
+</div>
+
+<p>
+<b>Original stacktrace is lost!</b>
+</p>
+
+</section>
+<section id="slide-orgheadline14">
+<h3 id="orgheadline14">Chained exceptions (2)</h3>
+<p>
+Python3
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-python">...
+File <span style="color: #aadddd;">"/Users/aaronmeurer/anaconda3/lib/python3.3/shutil.py"</span>, line 109, <span style="color: #aaffaa;">in</span> copyfile
+  <span style="color: #aaffaa;">with</span> <span style="color: #aaffaa;">open</span><span style="color: #aadddd;">(</span>src, <span style="color: #aadddd;">'rb'</span><span style="color: #aadddd;">)</span> <span style="color: #aaffaa;">as</span> fsrc:
+PermissionError: <span style="color: #aadddd;">[</span>Errno 13<span style="color: #aadddd;">]</span> Permission denied: <span style="color: #aadddd;">'noway'</span>
+
+During handling of the above exception, another exception occurred:
+
+Traceback <span style="color: #aadddd;">(</span>most recent call last<span style="color: #aadddd;">)</span>:
+File <span style="color: #aadddd;">"&lt;stdin&gt;"</span>, line 1, <span style="color: #aaffaa;">in</span> &lt;module&gt;
+File <span style="color: #aadddd;">"&lt;stdin&gt;"</span>, line 5, <span style="color: #aaffaa;">in</span> mycopy
+<span style="color: #aaeecc;">NotImplementedError</span>: automatic sudo injection
+</pre>
+</div>
+
+<p>
+Called manually as:
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #aaffaa;">raise</span> exception <span style="color: #aaffaa;">from</span> e
+&gt;&gt;&gt; <span style="color: #aaffaa;">raise</span> <span style="color: #aaeecc;">NotImplementedError</span> <span style="color: #aaffaa;">from</span> <span style="color: #aaeecc;">OSError</span>
+<span style="color: #aaeecc;">OSError</span>
+
+The above exception was the direct cause of the following exception:
+
+Traceback <span style="color: #aadddd;">(</span>most recent call last<span style="color: #aadddd;">)</span>:
+File <span style="color: #aadddd;">"&lt;stdin&gt;"</span>, line 1, <span style="color: #aaffaa;">in</span> &lt;module&gt;
+<span style="color: #aaeecc;">NotImplementedError</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-orgheadline15">
+<h3 id="orgheadline15">Fine grained exceptions (1)</h3>
+<p>
+Python2:
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #aaffaa;">import</span> errno
+<span style="color: #aaffaa;">def</span> <span style="color: #aaccff;">mycopy</span><span style="color: #aadddd;">(</span>source, dest<span style="color: #aadddd;">)</span>:
+  <span style="color: #aaffaa;">try</span>:
+      shutil.copy2<span style="color: #aadddd;">(</span>source, dest<span style="color: #aadddd;">)</span>
+  <span style="color: #aaffaa;">except</span> <span style="color: #aaeecc;">OSError</span> <span style="color: #aaffaa;">as</span> e:
+      <span style="color: #aaffaa;">if</span> e.errno <span style="color: #aaffaa;">in</span> <span style="color: #aadddd;">[</span>errno.EPERM, errno.EACCES<span style="color: #aadddd;">]</span>:
+          <span style="color: #aaffaa;">raise</span> <span style="color: #aaeecc;">NotImplementedError</span><span style="color: #aadddd;">(</span><span style="color: #aadddd;">"automatic sudo injection"</span><span style="color: #aadddd;">)</span>
+      <span style="color: #aaffaa;">else</span>:
+          <span style="color: #aaffaa;">raise</span>
+</pre>
+</div>
+
+<p>
+Python3:
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #aaffaa;">def</span> <span style="color: #aaccff;">mycopy</span><span style="color: #aadddd;">(</span>source, dest<span style="color: #aadddd;">)</span>:
+ <span style="color: #aaffaa;">try</span>:
+     shutil.copy2<span style="color: #aadddd;">(</span>source, dest<span style="color: #aadddd;">)</span>
+ <span style="color: #aaffaa;">except</span> PermissionError:
+     <span style="color: #aaffaa;">raise</span> <span style="color: #aaeecc;">NotImplementedError</span><span style="color: #aadddd;">(</span><span style="color: #aadddd;">"automatic sudo injection"</span><span style="color: #aadddd;">)</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-orgheadline16">
+<h3 id="orgheadline16">Iterators all over</h3>
+<ul>
+<li>range</li>
+<li>zip</li>
+<li>map</li>
+<li>dict.values</li>
+
+</ul>
+
+<p>
+are all iterators.
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-python">In <span style="color: #aadddd;">[</span>2<span style="color: #aadddd;">]</span>: <span style="color: #aaccff;">d</span> = <span style="color: #aadddd;">{</span>1: 2, 3: 4<span style="color: #aadddd;">}</span>
+
+In <span style="color: #aadddd;">[</span>3<span style="color: #aadddd;">]</span>: d.items<span style="color: #aadddd;">()</span>
+Out<span style="color: #aadddd;">[</span>3<span style="color: #aadddd;">]</span>: dict_items<span style="color: #aadddd;">(</span><span style="color: #aaeecc;">[</span><span style="color: #aaccff;">(</span>1, 2<span style="color: #aaccff;">)</span>, <span style="color: #aaccff;">(</span>3, 4<span style="color: #aaccff;">)</span><span style="color: #aaeecc;">]</span><span style="color: #aadddd;">)</span>
+
+In <span style="color: #aadddd;">[</span>4<span style="color: #aadddd;">]</span>: <span style="color: #aaffaa;">list</span><span style="color: #aadddd;">(</span>d.items<span style="color: #aaeecc;">()</span><span style="color: #aadddd;">)</span>
+Out<span style="color: #aadddd;">[</span>4<span style="color: #aadddd;">]</span>: <span style="color: #aadddd;">[</span><span style="color: #aaeecc;">(</span>1, 2<span style="color: #aaeecc;">)</span>, <span style="color: #aaeecc;">(</span>3, 4<span style="color: #aaeecc;">)</span><span style="color: #aadddd;">]</span>
+
+In <span style="color: #aadddd;">[</span>5<span style="color: #aadddd;">]</span>: d.keys<span style="color: #aadddd;">()</span>
+Out<span style="color: #aadddd;">[</span>5<span style="color: #aadddd;">]</span>: dict_keys<span style="color: #aadddd;">(</span><span style="color: #aaeecc;">[</span>1, 3<span style="color: #aaeecc;">]</span><span style="color: #aadddd;">)</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-orgheadline17">
+<h3 id="orgheadline17">No more ninja comparison</h3>
+<p>
+Python 2:
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-python">&gt;&gt;&gt; <span style="color: #aadddd;">'abc'</span> &gt; 123
+<span style="color: #ccaaff;">True</span>
+&gt;&gt;&gt; <span style="color: #ccaaff;">None</span> &gt; <span style="color: #aaffaa;">all</span>
+<span style="color: #ccaaff;">False</span>
+</pre>
+</div>
+
+<p>
+In Python 3 this does not work anymore:
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-python">&gt;&gt;&gt; <span style="color: #aadddd;">'one'</span> &gt; 2
+Traceback <span style="color: #aadddd;">(</span>most recent call last<span style="color: #aadddd;">)</span>:
+File <span style="color: #aadddd;">"&lt;stdin&gt;"</span>, line 1, <span style="color: #aaffaa;">in</span> &lt;module&gt;
+<span style="color: #aaeecc;">TypeError</span>: unorderable types: <span style="color: #aaffaa;">str</span><span style="color: #aadddd;">()</span> &gt; <span style="color: #aaffaa;">int</span><span style="color: #aadddd;">()</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-orgheadline18">
+<h3 id="orgheadline18">Yield from (1)</h3>
+<p>
+Python2
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #aaffaa;">for</span> i <span style="color: #aaffaa;">in</span> gen<span style="color: #aadddd;">()</span>:
+    <span style="color: #aaffaa;">yield</span> i
+</pre>
+</div>
+
+<p>
+Python3
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #aaffaa;">yield</span> <span style="color: #aaffaa;">from</span> gen<span style="color: #aadddd;">()</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-orgheadline19">
+<h3 id="orgheadline19">Yield from (2)</h3>
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #aaffaa;">def</span> <span style="color: #aaccff;">get_list_values</span><span style="color: #aadddd;">(</span>lst<span style="color: #aadddd;">)</span>:
+  <span style="color: #aaffaa;">for</span> item <span style="color: #aaffaa;">in</span> lst:
+    <span style="color: #aaffaa;">yield</span> <span style="color: #aaffaa;">int</span><span style="color: #aadddd;">(</span>item<span style="color: #aadddd;">)</span>
+  <span style="color: #aaffaa;">for</span> item <span style="color: #aaffaa;">in</span> lst:
+    <span style="color: #aaffaa;">yield</span> <span style="color: #aaffaa;">str</span><span style="color: #aadddd;">(</span>item<span style="color: #aadddd;">)</span>
+  <span style="color: #aaffaa;">for</span> item <span style="color: #aaffaa;">in</span> lst:
+    <span style="color: #aaffaa;">yield</span> <span style="color: #aaffaa;">float</span><span style="color: #aadddd;">(</span>item<span style="color: #aadddd;">)</span>
+</pre>
+</div>
+
+<p>
+Can be refactored as:
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #aaffaa;">def</span> <span style="color: #aaccff;">get_list_values</span><span style="color: #aadddd;">(</span>lst<span style="color: #aadddd;">)</span>:
+  <span style="color: #aaffaa;">for</span> sub <span style="color: #aaffaa;">in</span> <span style="color: #aadddd;">[</span>get_list_values_as_int,
+              get_list_values_as_str,
+              get_list_values_as_float<span style="color: #aadddd;">]</span>:
+    <span style="color: #aaffaa;">yield</span> <span style="color: #aaffaa;">from</span> sub<span style="color: #aadddd;">(</span>lst<span style="color: #aadddd;">)</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-orgheadline20">
+<h3 id="orgheadline20">Function annotations (1)</h3>
+<div class="org-src-container">
+
+<pre  class="src src-python">In <span style="color: #aadddd;">[</span>1<span style="color: #aadddd;">]</span>: <span style="color: #aaffaa;">def</span> <span style="color: #aaccff;">f</span><span style="color: #aadddd;">(</span>a: <span style="color: #aaffaa;">int</span>, b: <span style="color: #aaffaa;">int</span><span style="color: #aadddd;">)</span> -&gt; <span style="color: #aaffaa;">int</span>:
+   ...:     <span style="color: #aaffaa;">return</span> a + b
+   ...:
+
+In <span style="color: #aadddd;">[</span>2<span style="color: #aadddd;">]</span>: f<span style="color: #aadddd;">(</span>1, 20<span style="color: #aadddd;">)</span>
+Out<span style="color: #aadddd;">[</span>2<span style="color: #aadddd;">]</span>: 21
+
+In <span style="color: #aadddd;">[</span>3<span style="color: #aadddd;">]</span>: f.__annotations__
+Out<span style="color: #aadddd;">[</span>3<span style="color: #aadddd;">]</span>: <span style="color: #aadddd;">{</span><span style="color: #aadddd;">'a'</span>: <span style="color: #aaffaa;">int</span>, <span style="color: #aadddd;">'b'</span>: <span style="color: #aaffaa;">int</span>, <span style="color: #aadddd;">'return'</span>: <span style="color: #aaffaa;">int</span><span style="color: #aadddd;">}</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-orgheadline21">
+<h3 id="orgheadline21">Function annotations (2)</h3>
+
+<div class="figure">
+<p><img src="./images/shocked.gif" alt="shocked.gif" />
+</p>
+</div>
+
+<p>
+Actualy type checking:
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #aaeecc;">@typechecked</span>
+<span style="color: #aaffaa;">def</span> <span style="color: #aaccff;">greet</span><span style="color: #aadddd;">(</span>name: <span style="color: #aaffaa;">str</span>, age: <span style="color: #aaffaa;">int</span><span style="color: #aadddd;">)</span> -&gt; <span style="color: #aaffaa;">str</span>:
+    <span style="color: #aaffaa;">print</span><span style="color: #aadddd;">(</span><span style="color: #aadddd;">'Hello {0}, you are {1} years old'</span>.<span style="color: #aaffaa;">format</span><span style="color: #aaeecc;">(</span>name, age<span style="color: #aaeecc;">)</span><span style="color: #aadddd;">)</span>
+
+greet<span style="color: #aadddd;">(</span>1, 28<span style="color: #aadddd;">)</span>
+Traceback <span style="color: #aadddd;">(</span>most recent call last<span style="color: #aadddd;">)</span>:
+    ...
+<span style="color: #aaeecc;">TypeError</span>: Incorrect <span style="color: #aaffaa;">type</span> <span style="color: #aaffaa;">for</span> <span style="color: #aadddd;">"name"</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-orgheadline22">
+<h3 id="orgheadline22">Asyncio (1)</h3>
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #aaffaa;">import</span> asyncio
+
+<span style="color: #aaeecc;">@asyncio.coroutine</span>
+<span style="color: #aaffaa;">def</span> <span style="color: #aaccff;">my_coroutine</span><span style="color: #aadddd;">(</span>future, task_name, seconds_to_sleep=3<span style="color: #aadddd;">)</span>:
+    <span style="color: #aaffaa;">print</span><span style="color: #aadddd;">(</span><span style="color: #aadddd;">'{0} sleeping for: {1} seconds'</span>.<span style="color: #aaffaa;">format</span><span style="color: #aaeecc;">(</span>task_name, seconds_to_sleep<span style="color: #aaeecc;">)</span><span style="color: #aadddd;">)</span>
+    <span style="color: #aaffaa;">yield</span> <span style="color: #aaffaa;">from</span> asyncio.sleep<span style="color: #aadddd;">(</span>seconds_to_sleep<span style="color: #aadddd;">)</span>
+    future.set_result<span style="color: #aadddd;">(</span><span style="color: #aadddd;">'{0} is finished'</span>.<span style="color: #aaffaa;">format</span><span style="color: #aaeecc;">(</span>task_name<span style="color: #aaeecc;">)</span><span style="color: #aadddd;">)</span>
+
+
+<span style="color: #aaffaa;">def</span> <span style="color: #aaccff;">got_result</span><span style="color: #aadddd;">(</span>future<span style="color: #aadddd;">)</span>:
+    <span style="color: #aaffaa;">print</span><span style="color: #aadddd;">(</span>future.result<span style="color: #aaeecc;">()</span><span style="color: #aadddd;">)</span>
+
+<span style="color: #aaccff;">loop</span> = asyncio.get_event_loop<span style="color: #aadddd;">()</span>
+<span style="color: #aaccff;">future1</span> = asyncio.Future<span style="color: #aadddd;">()</span>
+<span style="color: #aaccff;">future2</span> = asyncio.Future<span style="color: #aadddd;">()</span>
+
+<span style="color: #aaccff;">tasks</span> = <span style="color: #aadddd;">[</span>
+    my_coroutine<span style="color: #aaeecc;">(</span>future1, <span style="color: #aadddd;">'task1'</span>, 3<span style="color: #aaeecc;">)</span>,
+    my_coroutine<span style="color: #aaeecc;">(</span>future2, <span style="color: #aadddd;">'task2'</span>, 1<span style="color: #aaeecc;">)</span><span style="color: #aadddd;">]</span>
+
+future1.add_done_callback<span style="color: #aadddd;">(</span>got_result<span style="color: #aadddd;">)</span>
+future2.add_done_callback<span style="color: #aadddd;">(</span>got_result<span style="color: #aadddd;">)</span>
+
+loop.run_until_complete<span style="color: #aadddd;">(</span>asyncio.wait<span style="color: #aaeecc;">(</span>tasks<span style="color: #aaeecc;">)</span><span style="color: #aadddd;">)</span>
+loop.close<span style="color: #aadddd;">()</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-orgheadline23">
+<h3 id="orgheadline23">Asyncio (2)</h3>
+<p>
+<b>async def!</b>
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #aaffaa;">import</span> asyncio
+<span style="color: #aaffaa;">import</span> datetime
+
+<span style="color: #aaffaa;">async def</span> <span style="color: #aaccff;">display_date</span><span style="color: #aadddd;">(</span>loop<span style="color: #aadddd;">)</span>:
+    <span style="color: #aaccff;">end_time</span> = loop.time<span style="color: #aadddd;">()</span> + 5.0
+    <span style="color: #aaffaa;">while</span> <span style="color: #ccaaff;">True</span>:
+        <span style="color: #aaffaa;">print</span><span style="color: #aadddd;">(</span>datetime.datetime.now<span style="color: #aaeecc;">()</span><span style="color: #aadddd;">)</span>
+        <span style="color: #aaffaa;">if</span> <span style="color: #aadddd;">(</span>loop.time<span style="color: #aaeecc;">()</span> + 1.0<span style="color: #aadddd;">)</span> &gt;= end_time:
+            <span style="color: #aaffaa;">break</span>
+        <span style="color: #aaffaa;">await</span> asyncio.sleep<span style="color: #aadddd;">(</span>1<span style="color: #aadddd;">)</span>
+
+<span style="color: #aaccff;">loop</span> = asyncio.get_event_loop<span style="color: #aadddd;">()</span>
+<span style="color: #5f5f5f; font-style: italic;"># </span><span style="color: #5f5f5f; font-style: italic;">Blocking call which returns when the display_date() coroutine is done</span>
+loop.run_until_complete<span style="color: #aadddd;">(</span>display_date<span style="color: #aaeecc;">(</span>loop<span style="color: #aaeecc;">)</span><span style="color: #aadddd;">)</span>
+loop.close<span style="color: #aadddd;">()</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-orgheadline24">
+<h3 id="orgheadline24">Standard library additions</h3>
+<ul>
+<li>ipaddress</li>
+<li>functools.lru_cache</li>
+<li>enum</li>
+<li>asyncio</li>
+<li>pathlib</li>
+<li>mock (in unittest.mock)</li>
+<li>&#x2026;</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline35">
+<h2 id="orgheadline35">Migrating</h2>
+<div class="outline-text-2" id="text-orgheadline35">
+</div></section>
+<section id="slide-orgheadline26">
+<h3 id="orgheadline26">2to3</h3>
+<ul>
+<li>one off syntactic conversion</li>
+<li>always save</li>
+<li>does not solve all the problems</li>
+<li>produced code is Python3 only</li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline27">
+<h3 id="orgheadline27">six</h3>
+<ul>
+<li>Python2 and Python3 compatible code</li>
+<li>Used by many projects (Django itself)</li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline28">
+<h3 id="orgheadline28">future</h3>
+<ul>
+<li>Similar to six but more modern</li>
+<li>futurize sript</li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline34">
+<h3 id="orgheadline34">Migration example</h3>
+<div class="outline-text-3" id="text-orgheadline34">
+</div></section>
+<section id="slide-orgheadline29">
+<h4 id="orgheadline29">2to3</h4>
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #aaffaa;">from</span> StringIO <span style="color: #aaffaa;">import</span> StringIO
+
+<span style="color: #aaffaa;">if</span> <span style="color: #aaffaa;">__name__</span> == <span style="color: #aadddd;">'__main__'</span>:
+    <span style="color: #aaccff;">s</span> = StringIO<span style="color: #aadddd;">(</span><span style="color: #aadddd;">"Hello"</span><span style="color: #aadddd;">)</span>
+    <span style="color: #aaffaa;">print</span> s.read<span style="color: #aadddd;">()</span>
+</pre>
+</div>
+
+<p>
+<b>2to3 original.py</b>
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #aaffaa;">from</span> io <span style="color: #aaffaa;">import</span> StringIO
+
+<span style="color: #aaffaa;">if</span> <span style="color: #aaffaa;">__name__</span> == <span style="color: #aadddd;">'__main__'</span>:
+    <span style="color: #aaccff;">s</span> = StringIO<span style="color: #aadddd;">(</span><span style="color: #aadddd;">"Hello"</span><span style="color: #aadddd;">)</span>
+    <span style="color: #aaffaa;">print</span><span style="color: #aadddd;">(</span>s.read<span style="color: #aaeecc;">()</span><span style="color: #aadddd;">)</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-orgheadline30">
+<h4 id="orgheadline30">Using six</h4>
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #aaffaa;">import</span> six
+
+
+<span style="color: #aaffaa;">if</span> <span style="color: #aaffaa;">__name__</span> == <span style="color: #aadddd;">'__main__'</span>:
+    <span style="color: #aaccff;">s</span> = six.StringIO<span style="color: #aadddd;">(</span><span style="color: #aadddd;">"Hello"</span><span style="color: #aadddd;">)</span>
+    <span style="color: #aaffaa;">print</span><span style="color: #aadddd;">(</span>s.read<span style="color: #aaeecc;">()</span><span style="color: #aadddd;">)</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre  class="src src-sh">$ python2 using_six.py
+Hello
+$ python3 using_six.py
+Hello
+</pre>
+</div>
+
+</section>
+<section id="slide-orgheadline31">
+<h4 id="orgheadline31">Using futurize</h4>
+<p>
+<b>futurize original.py</b>
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #aaffaa;">from</span> __future__ <span style="color: #aaffaa;">import</span> print_function
+<span style="color: #aaffaa;">from</span> future <span style="color: #aaffaa;">import</span> standard_library
+standard_library.install_aliases<span style="color: #aadddd;">()</span>
+<span style="color: #aaffaa;">from</span> io <span style="color: #aaffaa;">import</span> StringIO
+
+<span style="color: #aaffaa;">if</span> <span style="color: #aaffaa;">__name__</span> == <span style="color: #aadddd;">'__main__'</span>:
+
+    <span style="color: #aaccff;">s</span> = StringIO<span style="color: #aadddd;">(</span><span style="color: #aadddd;">"Hello"</span><span style="color: #aadddd;">)</span>
+    <span style="color: #aaffaa;">print</span><span style="color: #aadddd;">(</span>s.read<span style="color: #aaeecc;">()</span><span style="color: #aadddd;">)</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-orgheadline32">
+<h4 id="orgheadline32">Running tests (1)</h4>
+<p>
+<b>Tox</b> runs tests for many environments
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-conf">[<span style="color: #aaeecc;">tox</span>]
+<span style="color: #aaccff;">envlist</span> = py27,py34,py35
+[<span style="color: #aaeecc;">testenv</span>]
+<span style="color: #aaccff;">deps</span>=
+   pytest
+   -rrequirements.txt
+<span style="color: #aaccff;">commands</span>=py.test tests.py
+</pre>
+</div>
+
+</section>
+<section id="slide-orgheadline33">
+<h4 id="orgheadline33">Running tests (2)</h4>
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #aaffaa;">import</span> to_test
+
+<span style="color: #aaffaa;">def</span> <span style="color: #aaccff;">test_gen_io</span><span style="color: #aadddd;">()</span>:
+    <span style="color: #aaffaa;">assert</span> to_test.gen_io<span style="color: #aadddd;">()</span>.read<span style="color: #aadddd;">()</span> == <span style="color: #aadddd;">"Hello world"</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #aaffaa;">import</span> six
+
+<span style="color: #aaffaa;">def</span> <span style="color: #aaccff;">gen_io</span><span style="color: #aadddd;">()</span>:
+    <span style="color: #aaffaa;">return</span> six.StringIO<span style="color: #aadddd;">(</span><span style="color: #aadddd;">"Hello world"</span><span style="color: #aadddd;">)</span>
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline37">
+<h2 id="orgheadline37">Conclusions</h2>
+
+<div class="figure">
+<p><img src="./images/elephant.jpg" alt="elephant.jpg" />
+</p>
+</div>
+
+<ul>
+<li>we can't ignore Python3</li>
+<li>start experimenting</li>
+<li>new projects Python2/3 or Python3 only</li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline36">
+<h3 id="orgheadline36">Possible plan</h3>
+<ul>
+<li>existing projects
+<ul>
+<li>deprecate and possibly replace any non Python3 compatible libraries</li>
+<li>pick carefully new libraries</li>
+<li>turn on Python3 warnings</li>
+<li>make tests run for Python3</li>
+
+</ul></li>
+
+<li>new projects
+<ul>
+<li>if possible Python3 only</li>
+<li>otherwise use <b>future</b> or <b>six</b> for Python2 compatibility</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline38">
+<h2 id="orgheadline38">Links</h2>
+<ul>
+<li><a href="https://pypi.python.org/pypi/future">future library</a></li>
+<li><a href="https://pypi.python.org/pypi/six">six library</a></li>
+<li><a href="https://github.com/python/cpython/blob/master/Objects/unicodeobject.c">Python3 unicode code</a></li>
+<li><a href="http://nedbatchelder.com/text/unipain/unipain.html#1">pragmatic unicode, how do I stop the pain?</a></li>
+<li><a href="https://asmeurer.github.io/python3-presentation/slides.htm">10 awesome python3 features</a></li>
+<li><a href="http://www.snarky.ca/why-python-3-exists">why python3 exists</a></li>
+<li><a href="http://www.diveintopython3.net/porting-code-to-python-3-with-2to3.html">porting to python3 with 2to3</a></li>
+<li><a href="https://pypi.python.org/pypi/tox">tox</a></li>
+<li><a href="https://python3wos.appspot.com/">python3 wall of superpowers</a></li>
+<li><a href="https://ceronman.com/2013/03/12/a-powerful-unused-feature-of-python-function-annotations/">power of function annotations</a></li>
+<li><a href="https://www.python.org/dev/peps/pep-3107/">function annotations PEP</a></li>
+<li><a href="http://stackoverflow.com/questions/1036585/unicode-support-in-various-programming-languages">unicode support in various languages</a></li>
+
+</ul>
+</section>
+</section>
+</div>
+</div>
+<script src="/home/andrea/projects/oss_projects/javascript/reveal.js/lib/js/head.min.js"></script>
+<script src="/home/andrea/projects/oss_projects/javascript/reveal.js/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'fast',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: '/home/andrea/projects/oss_projects/javascript/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: '/home/andrea/projects/oss_projects/javascript/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '/home/andrea/projects/oss_projects/javascript/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '/home/andrea/projects/oss_projects/javascript/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: '/home/andrea/projects/oss_projects/javascript/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Dot scale, Dot Security</title>
+<meta name="author" content="(Andrea Crotti)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="/home/andrea/projects/oss_projects/javascript/reveal.js/css/reveal.css"/>
+
+<link rel="stylesheet" href="/home/andrea/projects/oss_projects/javascript/reveal.js/css/theme/moon.css" id="theme"/>
+
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '/home/andrea/projects/oss_projects/javascript/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">Dot scale, Dot Security</h1><h2 class="author">Andrea Crotti</h2><p class="date">Created: 2016-05-26 Thu 11:18</p>
+</section>
+
+<section>
+<section id="slide-orgheadline3">
+<h2 id="orgheadline3">Dotconferences</h2>
+<ul>
+<li>new format of conferences</li>
+<li>organised in Paris</li>
+<li>talks from top notch speakers</li>
+<li>in beautiful theathers</li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline1">
+<h3 id="orgheadline1">Fancy</h3>
+
+<div class="figure">
+<p><img src="./images/theater.jpg" alt="theater.jpg" />
+</p>
+</div>
+
+</section>
+<section id="slide-orgheadline2">
+<h3 id="orgheadline2">Arguments</h3>
+
+<div class="figure">
+<p><img src="./images/dotconfs.png" alt="dotconfs.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline14">
+<h2 id="orgheadline14">Dotsecurity</h2>
+<div class="outline-text-2" id="text-orgheadline14">
+</div></section>
+<section id="slide-orgheadline4">
+<h3 id="orgheadline4">https / letsencrypt</h3>
+<ul>
+<li>handling certificates is a massive PITA</li>
+<li>revoked certificates <b>not handled</b></li>
+<li>millions of certificates in 1 month</li>
+<li>wide and fast adoption</li>
+
+</ul>
+
+
+<div class="figure">
+<p><img src="./images/letsencrypt.png" alt="letsencrypt.png" />
+</p>
+</div>
+
+</section>
+<section id="slide-orgheadline5">
+<h3 id="orgheadline5">Life of a vulnerability</h3>
+<ul>
+<li>vulnerability definition</li>
+<li>how vulnerable servers are found</li>
+<li><a href="https://www.shodan.io/">https://www.shodan.io/</a></li>
+<li>live demo exploiting a vulnerability</li>
+<li><b>rm -rf /</b> on a rails server</li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline6">
+<h3 id="orgheadline6">Multi Factor Authentication</h3>
+<p>
+Talk from Jacob Kaplan-Moss.
+</p>
+
+<ul>
+<li>user and password not enough anymore</li>
+<li>difference between soft and hard tokens</li>
+<li>ask MFA not <b>just</b> when logging in, but whenever the user does certain operations</li>
+<li>have a clear backup plan in place</li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline7">
+<h3 id="orgheadline7">Lightning talks</h3>
+<blockquote nil>
+<p>
+Every time you use <b>sudo</b> God kills a squirrel.
+</p>
+</blockquote>
+
+</section>
+<section id="slide-orgheadline8">
+<h3 id="orgheadline8">CSP (1)</h3>
+<ul>
+<li>new header (<b>content-security-policy</b>), which can eg:
+<ul>
+<li>load assets only from a certain source</li>
+<li>disable the use of inline &lt;script&gt;</li>
+<li>disable http assets on HTTPS pages</li>
+
+</ul></li>
+<li>preventing clickjacking, cross-site-scripting and more</li>
+<li>getting standardized</li>
+<li>can be fully enabled or just in <b>report mode</b></li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline9">
+<h3 id="orgheadline9">CSP (2)</h3>
+<p>
+A web site administrator wants to allow content from a trusted domain
+and all its subdomains (it doesn't have to be the same domain that the
+CSP is set on.)
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-javascript">Content-Security-Policy: <span style="color: #aaffaa;">default</span>-src <span style="color: #aadddd;">'self'</span> *.trusted.com
+</pre>
+</div>
+
+<p>
+A web site administrator wants to allow users of a web application to
+include images from any origin in their own content, but to restrict
+audio or video media to trusted providers, and all scripts only to a
+specific server that hosts trusted code.
+</p>
+
+
+<div class="org-src-container">
+
+<pre  class="src src-javascript">Content-Security-Policy: <span style="color: #aaffaa;">default</span>-src <span style="color: #aadddd;">'self'</span>; img-src *; media-src media1.com media2.com; script-src userscripts.example.com
+</pre>
+</div>
+
+</section>
+<section id="slide-orgheadline10">
+<h3 id="orgheadline10">The update framework</h3>
+<p>
+From the Head of Security at Docker.
+</p>
+
+<ul>
+<li>we are screwed</li>
+<li>most package managers are insecure (except for Docker)</li>
+<li>delegate power through a hierarchy of keys</li>
+<li>sign with multiple keys</li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline11">
+<h3 id="orgheadline11">OpenBSD and pledge</h3>
+<p>
+From the creator of OpenBSD and OpenSSH
+</p>
+
+<ul>
+<li>principle of least priviledge</li>
+<li>declare the permissions that a program has <b>once for all</b></li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline12">
+<h3 id="orgheadline12">DNS</h3>
+<blockquote nil>
+<p>
+Hardware is like milk, you want it as fresh as possible.
+Software is like wine, it you want it aged.
+</p>
+</blockquote>
+
+</section>
+<section id="slide-orgheadline13">
+<h3 id="orgheadline13">Web Platform Security</h3>
+<ul>
+<li>principle of least priviledge</li>
+<li>CSP limitations</li>
+<li>work in progress in improving CSP</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline19">
+<h2 id="orgheadline19">Dotscale</h2>
+<div class="outline-text-2" id="text-orgheadline19">
+</div></section>
+<section id="slide-orgheadline15">
+<h3 id="orgheadline15">Erlang</h3>
+<ul>
+<li>actor model invented in 1973
+<ul>
+<li>send message</li>
+<li>create other actors</li>
+<li>process message</li>
+
+</ul></li>
+
+<li>actors share nothings</li>
+<li>sanity in a sea of complexity</li>
+<li>1986 Erlang was created</li>
+<li>Erlang scales vertically and horizontally</li>
+<li>Let it crash</li>
+<li>Share nothing</li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline16">
+<h3 id="orgheadline16">Stateful containers</h3>
+<ul>
+<li>stateful containers are hard</li>
+<li>docker state done with volumes</li>
+<li>moving stateful containers between different clouds is hard</li>
+<li>need a <b>hybridized</b> container volume snapshotter</li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline17">
+<h3 id="orgheadline17">Economics and scaling</h3>
+<ul>
+<li>look at how to maximize the profit</li>
+<li>data value grows logarithmically</li>
+
+<li>cost of development for scale used to grow almost exponentially, now
+thanks to the cloud it's not like that anymore</li>
+
+<li>teams should be small to not have excessive communication but to avoid
+too much coordination</li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline18">
+<h3 id="orgheadline18">MongoDB uber alles</h3>
+<p>
+MongoDB as <b>universal</b> information aggregator
+</p>
+
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline20">
+<h2 id="orgheadline20">Links</h2>
+<ul>
+<li><a href="http://www.dotsecurity.io/">http://www.dotsecurity.io/</a></li>
+<li><a href="https://www.shodan.io/">https://www.shodan.io/</a></li>
+<li><a href="http://www.dotscale.io/">http://www.dotscale.io/</a></li>
+<li><a href="https://theupdateframework.github.io/">https://theupdateframework.github.io/</a></li>
+<li><a href="https://speakerdeck.com/mikewest/web-platform-security-dotsecurity-april-2016">https://speakerdeck.com/mikewest/web-platform-security-dotsecurity-april-2016</a></li>
+<li><a href="http://streamdata.io/blog/dotscale-2016/">dotscale 2016 writeup</a></li>
+
+</ul>
+</section>
+</section>
+</div>
+</div>
+<script src="/home/andrea/projects/oss_projects/javascript/reveal.js/lib/js/head.min.js"></script>
+<script src="/home/andrea/projects/oss_projects/javascript/reveal.js/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'fast',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: '/home/andrea/projects/oss_projects/javascript/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: '/home/andrea/projects/oss_projects/javascript/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '/home/andrea/projects/oss_projects/javascript/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '/home/andrea/projects/oss_projects/javascript/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: '/home/andrea/projects/oss_projects/javascript/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>
