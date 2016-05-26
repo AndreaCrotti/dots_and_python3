@@ -124,7 +124,7 @@ Python 3:
 #+END_SRC
 
 
-* Other changes
+* Other Improvements
 
 ** Advanced unpacking
 Python2:
@@ -157,7 +157,7 @@ Defined as:
 def f(a, b, *args, option=True):
 #+END_SRC
 
-The only way to access it is to explicitly call f(a, b, option=True)
+Can only be called as f(a, b, option=True)
 
 You can write just a * if you don't want to collect *args.
 
@@ -196,6 +196,8 @@ def mycopy(source, dest):
   NotImplementedError: automatic sudo injection
 #+end_src
 
+*Original stacktrace is lost!*
+
 ** Chained exceptions (2)
 
 Python3
@@ -214,7 +216,7 @@ Python3
   NotImplementedError: automatic sudo injection
 #+END_SRC
 
-Or even
+Called manually as:
 
 #+BEGIN_SRC python
   raise exception from e
@@ -328,6 +330,8 @@ yield from gen()
       yield float(item)
 #+END_SRC
 
+Can be refactored as:
+
 #+BEGIN_SRC python
   def get_list_values(lst):
     for sub in [get_list_values_as_int,
@@ -336,7 +340,7 @@ yield from gen()
       yield from sub(lst)
 #+END_SRC
 
-** Function annotations
+** Function annotations (1)
 
 #+begin_src python
 In [1]: def f(a: int, b: int) -> int:
@@ -350,7 +354,24 @@ In [3]: f.__annotations__
 Out[3]: {'a': int, 'b': int, 'return': int}
 #+end_src
 
-** Asyncio
+** Function annotations (2)
+
+[[./images/shocked.gif]]
+
+Actualy type checking:
+
+#+BEGIN_SRC python
+  @typechecked
+  def greet(name: str, age: int) -> str:
+      print('Hello {0}, you are {1} years old'.format(name, age))
+
+  greet(1, 28)
+  Traceback (most recent call last):
+      ...
+  TypeError: Incorrect type for "name"
+#+END_SRC
+
+** Asyncio (1)
 
 #+begin_src python
 
@@ -382,6 +403,28 @@ Out[3]: {'a': int, 'b': int, 'return': int}
 
 #+end_src
 
+** Asyncio (2)
+
+*async def!*
+
+#+BEGIN_SRC python
+  import asyncio
+  import datetime
+
+  async def display_date(loop):
+      end_time = loop.time() + 5.0
+      while True:
+          print(datetime.datetime.now())
+          if (loop.time() + 1.0) >= end_time:
+              break
+          await asyncio.sleep(1)
+
+  loop = asyncio.get_event_loop()
+  # Blocking call which returns when the display_date() coroutine is done
+  loop.run_until_complete(display_date(loop))
+  loop.close()
+#+END_SRC
+
 ** Standard library additions
 
 - ipaddress
@@ -395,9 +438,11 @@ Out[3]: {'a': int, 'b': int, 'return': int}
 * Migrating
 
 ** 2to3
+
 - one off syntactic conversion
-- always safe
+- always save
 - does not solve all the problems
+- produced code is Python3 only
 
 ** six
 
@@ -406,7 +451,8 @@ Out[3]: {'a': int, 'b': int, 'return': int}
 
 ** future
 
-Similar to six but more modern
+- Similar to six but more modern
+- futurize sript
 
 ** Migration example
 
@@ -531,3 +577,5 @@ Hello
 - [[http://www.diveintopython3.net/porting-code-to-python-3-with-2to3.html][porting to python3 with 2to3]]
 - [[https://pypi.python.org/pypi/tox][tox]]
 - [[https://python3wos.appspot.com/][python3 wall of superpowers]]
+- [[https://ceronman.com/2013/03/12/a-powerful-unused-feature-of-python-function-annotations/][power of function annotations]]
+- [[https://www.python.org/dev/peps/pep-3107/][function annotations PEP]]

@@ -150,10 +150,10 @@ Software is like wine, it you want it aged.
 - teams should be small to not have excessive communication but to avoid
   too much coordination
 
-** MongoDB presentation
+** MongoDB uber alles
 
-- MongoDB as universal information aggregator
-- extra smart optimization
+MongoDB as *universal* information aggregator
+
 
 * Links
 
@@ -163,4 +163,3 @@ Software is like wine, it you want it aged.
 - https://theupdateframework.github.io/
 - https://speakerdeck.com/mikewest/web-platform-security-dotsecurity-april-2016
 - [[http://streamdata.io/blog/dotscale-2016/][dotscale 2016 writeup]]
-
