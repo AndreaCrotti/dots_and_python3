@@ -25,7 +25,7 @@
 
 ** https / letsencrypt
 
-- certificates massive PITAs
+- handling certificates is a massive PITA
 - revoked certificates *not handled*
 - millions of certificates in 1 month
 - wide and fast adoption
@@ -38,6 +38,7 @@
 - how vulnerable servers are found
 - https://www.shodan.io/
 - live demo exploiting a vulnerability
+- *rm -rf /* on a rails server
 
 ** Multi Factor Authentication
 
@@ -67,6 +68,24 @@ Every time you use *sudo* God kills a squirrel.
     
 ** CSP (2)
 
+A web site administrator wants to allow content from a trusted domain
+and all its subdomains (it doesn't have to be the same domain that the
+CSP is set on.)
+
+#+BEGIN_SRC javascript
+  Content-Security-Policy: default-src 'self' *.trusted.com
+#+END_SRC
+
+A web site administrator wants to allow users of a web application to
+include images from any origin in their own content, but to restrict
+audio or video media to trusted providers, and all scripts only to a
+specific server that hosts trusted code.
+
+
+#+BEGIN_SRC javascript
+  Content-Security-Policy: default-src 'self'; img-src *; media-src media1.com media2.com; script-src userscripts.example.com
+#+END_SRC
+
 ** The update framework
 
 From the Head of Security at Docker.
@@ -76,32 +95,26 @@ From the Head of Security at Docker.
 - delegate power through a hierarchy of keys
 - sign with multiple keys
 
-
 ** OpenBSD and pledge
+
+From the creator of OpenBSD and OpenSSH
 
 - principle of least priviledge
 - declare the permissions that a program has *once for all*
 
 ** DNS
 
-
 #+begin_quote
 Hardware is like milk, you want it as fresh as possible.
 Software is like wine, it you want it aged.
 #+end_quote
-
+ 
 ** Web Platform Security
 
 
 - principle of least priviledge
 - CSP limitations
 - work in progress in improving CSP
-
-** Takeaways
-
-- letsencrypt
-- [[https://www.yubico.com/products/yubikey-hardware/yubikey4/#toggle-id-7][yubi key]] for hardware security
-
 
 * Dotscale
 
@@ -126,8 +139,6 @@ Software is like wine, it you want it aged.
 - moving stateful containers between different clouds is hard
 - need a *hybridized* container volume snapshotter
 
-** Cern collider
-
 ** Economics and scaling
 
 - look at how to maximize the profit
@@ -141,10 +152,8 @@ Software is like wine, it you want it aged.
 
 ** MongoDB presentation
 
-** Takeaways
-
-- consider even more asynchronous computation
-- 
+- MongoDB as universal information aggregator
+- extra smart optimization
 
 * Links
 
@@ -153,4 +162,5 @@ Software is like wine, it you want it aged.
 - http://www.dotscale.io/
 - https://theupdateframework.github.io/
 - https://speakerdeck.com/mikewest/web-platform-security-dotsecurity-april-2016
+- [[http://streamdata.io/blog/dotscale-2016/][dotscale 2016 writeup]]
 
